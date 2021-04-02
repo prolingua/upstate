@@ -8,7 +8,7 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 /// @notice You can use this contract in conjuction with another contract
 /// @dev Inherit ERC20. All overriding functions have been unit tested
 contract Token is ERC20 {
-    using SafeMath for uint;
+    using SafeMath for uint256;
     uint256 public timeStart;
     uint256 public timeEnd;
     uint256 public timeNow;

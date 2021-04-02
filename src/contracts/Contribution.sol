@@ -10,7 +10,7 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 /// @notice You use this with Token contract
 /// @dev All functions have been unit tested
 contract Contribution {
-    using SafeMath for uint;
+    using SafeMath for uint256;
 
     Token private token;
     address private tokenOwner;
