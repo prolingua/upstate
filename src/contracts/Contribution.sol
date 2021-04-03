@@ -29,11 +29,11 @@ contract Contribution {
     }
   
     /// @notice when calling the function, you need to specify the sender and value in the metadata parameter
-    /// @dev emit Donate event
+    /// @dev emit Donate event; remember to use the SafeMath functions (add, sub, mul, div, mod) rather than the original operators (+, -,  *,  /, %)
     function donate() payable external {    
-        require(token.transferFrom(tokenOwner, msg.sender, msg.value * multiplier));
-        donationAmountFrom[msg.sender] = donationAmountFrom[msg.sender] + msg.value;
-        emit Donate(msg.sender, msg.value, msg.value * multiplier, block.timestamp);
+        require(token.transferFrom(tokenOwner, msg.sender, (msg.value).mul(multiplier)));
+        donationAmountFrom[msg.sender] = (donationAmountFrom[msg.sender]).add(msg.value);
+        emit Donate(msg.sender, msg.value, (msg.value).mul(multiplier), block.timestamp);
     }
 
     /// @dev emit Withdraw event
