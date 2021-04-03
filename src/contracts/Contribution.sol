@@ -30,7 +30,7 @@ contract Contribution {
   
     /// @notice when calling the function, you need to specify the sender and value in the metadata parameter
     /// @dev emit Donate event
-    function donate() payable public {    
+    function donate() payable external {    
         require(token.transferFrom(tokenOwner, msg.sender, msg.value * multiplier));
         donationAmountFrom[msg.sender] = donationAmountFrom[msg.sender] + msg.value;
         emit Donate(msg.sender, msg.value, msg.value * multiplier, block.timestamp);
@@ -38,7 +38,7 @@ contract Contribution {
 
     /// @dev emit Withdraw event
     /// @param amount the amount of the ethers that the token owner withdraws
-    function withdraw(uint256 amount) public {
+    function withdraw(uint256 amount) external {
         require(msg.sender == tokenOwner);
         msg.sender.transfer(amount);
         emit Withdraw(amount, block.timestamp);

@@ -41,7 +41,7 @@ contract Token is ERC20 {
     /// @param _amount the amount of the tokens in wei to be transferred
     /// @return success , indicating if the transfer is successfull
     function transferFrom(address _sender, address _to, uint256 _amount) public override returns (bool success) {
-        require(timeStart <= (block.timestamp) && block.timestamp <= timeEnd);
+        require(timeStart < (block.timestamp) && block.timestamp < timeEnd);
         return super.transferFrom(_sender, _to, _amount);
     }
     
