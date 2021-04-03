@@ -65,8 +65,8 @@ contract('Contribution', ([deployer, account1, account2]) => {
                 event.contributor.toString().should.equal(account1, 'contributor is correct');
                 event.etherAmount.toString().should.equal(ether(2).toString(), 'etherAmount is correct');
                 event.tokenAmount.toString().should.equal(tokens(20).toString(), 'tokenAmount is correct');
-                expect(Number(event.timestamp)).to.be.above(timeStart);  // the timestamp of the event should be after the start time
-                expect(Number(event.timestamp)).to.be.below(timeEnd);    // the timestamp of the event should be after the end time
+                expect(Number(event.timestamp)).to.be.gte(timeStart);  // the timestamp of the event should be at or after the start
+                expect(Number(event.timestamp)).to.be.lte(timeEnd);    // the timestamp of the event should be before or at the end time
                 
             })
 
@@ -81,8 +81,8 @@ contract('Contribution', ([deployer, account1, account2]) => {
                 log.event.should.equal('Withdraw');
                 const event = log.args;
                 event.amount.toString().should.equal(ether(2).toString(), 'amount is correct');
-                expect(Number(event.timestamp)).to.be.above(timeStart);  // the timestamp of the event should be after the start time
-                expect(Number(event.timestamp)).to.be.below(timeEnd);    // the timestamp of the event should be after the end time
+                expect(Number(event.timestamp)).to.be.gte(timeStart);  // the timestamp of the event should be at or after the start
+                expect(Number(event.timestamp)).to.be.lte(timeEnd);    // the timestamp of the event should be before or at the end time
             })
         })
 

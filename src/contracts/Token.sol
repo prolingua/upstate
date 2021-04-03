@@ -18,7 +18,7 @@ contract Token is ERC20 {
     /// @param _timeStart the starting time in seconds as epochtime
     /// @param _timeEnd the ending time in seconds as epochtime
     /// @param _totalSupply the total of the tokens minted in wei
-    constructor(uint256 _timeStart, uint256 _timeEnd, uint256 _totalSupply) public payable ERC20("Upstate Token", "UPTO") {
+    constructor(uint256 _timeStart, uint256 _timeEnd, uint256 _totalSupply) public payable ERC20("Upstate Token", "UPS") {
         timeStart = _timeStart;
         timeEnd = _timeEnd;
         _mint(msg.sender,_totalSupply);
@@ -30,7 +30,7 @@ contract Token is ERC20 {
     /// @param _amount the amount of the tokens in wei to be transferred
     /// @return success , indicating if the transfer is successfull
     function transfer(address _to, uint256 _amount) public override returns (bool success) {
-        require(timeStart < (block.timestamp) && block.timestamp < timeEnd);
+        require(timeStart <= (block.timestamp) && block.timestamp <= timeEnd);
         return super.transfer(_to, _amount);
     }
 
@@ -41,7 +41,7 @@ contract Token is ERC20 {
     /// @param _amount the amount of the tokens in wei to be transferred
     /// @return success , indicating if the transfer is successfull
     function transferFrom(address _sender, address _to, uint256 _amount) public override returns (bool success) {
-        require(timeStart < (block.timestamp) && block.timestamp < timeEnd);
+        require(timeStart <= (block.timestamp) && block.timestamp <= timeEnd);
         return super.transferFrom(_sender, _to, _amount);
     }
     
