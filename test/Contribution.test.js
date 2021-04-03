@@ -58,6 +58,9 @@ contract('Contribution', ([deployer, account1, account2]) => {
                 // the donor should get the correct amount of tokens
                 (await token.balanceOf(account1)).toString().should.equal(tokens(20).toString());
 
+                // the token allowance should decrease by 20
+                (await token.allowance(deployer, contribution.address)).toString().should.equal((tokens(10000-20)).toString());
+
                 // check the Donate event emitted by Contribution
                 const log = result2.logs[0];
                 log.event.should.equal('Donate');
