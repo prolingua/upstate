@@ -17,8 +17,8 @@ contract Contribution {
     uint256 private constant multiplier = 10;
     mapping(address => uint256) public donationAmountFrom;
 
-    event Donate(address indexed contributor, uint256 etherAmount, uint256 tokenAmount);
-    event Withdraw(uint256 amount);
+    event Donate(address indexed contributor, uint256 etherAmount, uint256 tokenAmount, uint256 timestamp);
+    event Withdraw(uint256 amount, uint timestamp);
 
     /// @notice initialize the token address and the token owner address
     /// @param _tokenAddress the token address
@@ -33,7 +33,7 @@ contract Contribution {
     function donate() payable public {    
         require(token.transferFrom(tokenOwner, msg.sender, msg.value * multiplier));
         donationAmountFrom[msg.sender] = donationAmountFrom[msg.sender] + msg.value;
-        emit Donate(msg.sender, msg.value, msg.value * multiplier);
+        emit Donate(msg.sender, msg.value, msg.value * multiplier, block.timestamp);
     }
 
     /// @dev emit Withdraw event
@@ -41,6 +41,6 @@ contract Contribution {
     function withdraw(uint256 amount) public {
         require(msg.sender == tokenOwner);
         msg.sender.transfer(amount);
-        emit Withdraw(amount);
+        emit Withdraw(amount, block.timestamp);
     }
 }
