@@ -29,15 +29,18 @@ contract Contribution {
     }
   
     /// @notice when calling the function, you need to specify the sender and value in the metadata parameter
-    /// @dev emit Donate event; remember to use the SafeMath functions (add, sub, mul, div, mod) rather than the original operators (+, -,  *,  /, %)
+    /// @dev emit Donate event; remember to use the SafeMath functions (add, sub, mul, div, mod) rather than the original operators (+, -,  *,  /, %)'; use modifier external instead of public to lower the gas cost
     function donate() payable external {    
         require(token.transferFrom(tokenOwner, msg.sender, (msg.value).mul(multiplier)));
         donationAmountFrom[msg.sender] = (donationAmountFrom[msg.sender]).add(msg.value);
         emit Donate(msg.sender, msg.value, (msg.value).mul(multiplier), block.timestamp);
     }
 
-    /// @dev emit Withdraw event
+    /// @dev emit Withdraw event; ; use modifier external instead of public to lower the gas cost
     /// @param amount the amount of the ethers that the token owner withdraws
+    /* note for Lorran and Doug: This function is not required by the Challenge. I created this function as I think someone has to heve access to the donated ethers.
+       Otherwise, the donated ethers will just sit in the contract wasted.
+    */
     function withdraw(uint256 amount) external {
         require(msg.sender == tokenOwner);
         msg.sender.transfer(amount);
